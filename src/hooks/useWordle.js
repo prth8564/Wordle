@@ -4,7 +4,7 @@ const useWordle = (solution) => {
 
     const [turn , setTurn] = useState(0);
     const [currentGuess , setCurrentGuess]  = useState('');
-    const [guess , setGuess] = useState('');
+    const [guess , setGuess] = useState([...Array(6)]);
     const [history , setHistory] = useState(['apple' , 'fruit']);
     const [isCorrect , setIsCorrect] = useState(false);
 
@@ -29,9 +29,31 @@ const useWordle = (solution) => {
         return formattedGuess;
     }
 
-    const addNewGuess = () => {
 
+
+
+    const addNewGuess = (formattedGuess) => {
+        if(currentGuess === solution){
+            setIsCorrect(true)
+        }
+        setGuess((prevGuess) => {
+            const newGuess = [...prevGuess];
+            newGuess[turn] = formattedGuess;
+            return newGuess;
+        })
+        setHistory((prevHistory) => {
+            return [...prevHistory , currentGuess]
+        })
+
+        setTurn((prevTurn) =>{
+            return prevTurn+1;
+        })
+        setCurrentGuess('');
     }
+
+
+
+
 
     const handleKeyUp = ({key}) => {
         
@@ -50,7 +72,7 @@ const useWordle = (solution) => {
                 return;
             }
             const formattedGuess = formatGuess();
-            console.log(formattedGuess);
+            addNewGuess(formattedGuess);
         }
 
 
