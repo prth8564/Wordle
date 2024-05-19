@@ -7,6 +7,8 @@ const useWordle = (solution) => {
     const [guess , setGuess] = useState([...Array(6)]);
     const [history , setHistory] = useState(['apple' , 'fruit']);
     const [isCorrect , setIsCorrect] = useState(false);
+    const [usedKeys, setUsedKeys] = useState({})
+
 
     const formatGuess = () => {
         console.log("Formattting now----------", currentGuess);
@@ -30,8 +32,6 @@ const useWordle = (solution) => {
     }
 
 
-
-
     const addNewGuess = (formattedGuess) => {
         if(currentGuess === solution){
             setIsCorrect(true)
@@ -48,10 +48,29 @@ const useWordle = (solution) => {
         setTurn((prevTurn) =>{
             return prevTurn+1;
         })
+
+        setUsedKeys(prevUsedKeys => {
+            formattedGuess.forEach(l => {
+              const currentColor = prevUsedKeys[l.key]
+      
+              if (l.color === 'green') {
+                prevUsedKeys[l.key] = 'green'
+                return
+              }
+              if (l.color === 'yellow' && currentColor !== 'green') {
+                prevUsedKeys[l.key] = 'yellow'
+                return
+              }
+              if (l.color === 'grey' && currentColor !== ('green' || 'yellow')) {
+                prevUsedKeys[l.key] = 'grey'
+                return
+              }
+            })
+      
+            return prevUsedKeys
+          })
         setCurrentGuess('');
     }
-
-
 
 
 
@@ -90,6 +109,6 @@ const useWordle = (solution) => {
         }
     }
 
-    return {turn , currentGuess , guess, isCorrect , handleKeyUp}
+    return {turn , currentGuess , guess, isCorrect , handleKeyUp , usedKeys}
 }
 export default useWordle;

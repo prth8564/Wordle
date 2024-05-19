@@ -3,7 +3,7 @@ import useWordle from '../hooks/useWordle.js'
 import Grid from './Grid.jsx';
 import Keypad from './Keypad.jsx';
 const Wordle = ({solution}) => {
-    const {currentGuess , guess , handleKeyUp , turn  ,isCorrect} = useWordle(solution);
+    const {currentGuess , guess , handleKeyUp , turn  ,isCorrect , usedKeys} = useWordle(solution);
 
     useEffect(() => {
         window.addEventListener('keyup' , handleKeyUp);
@@ -20,7 +20,7 @@ const Wordle = ({solution}) => {
     <div>Wordle -- {currentGuess}</div>
     <p>{solution}</p>
     <Grid currentGuess = {currentGuess} guess={guess} turn={turn} />
-    <Keypad />
+    <Keypad usedKeys = {usedKeys} />
     </>
   )
 }
