@@ -6,6 +6,9 @@ const Grid = ({currentGuess , guess , turn}) => {
     <div>
         <p>hey</p>
     {guess.map((g , i) => {
+      if(turn == i){
+        return <Row key={i} guess={g}  currentGuess = {currentGuess} />
+      }
        return <Row key={i} guess={g} />
     })}
     </div>
