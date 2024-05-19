@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Wordle from './components/Wordle';
+import './index.css'
 function App() {
   const [solution, setSolution] = useState();
 
@@ -16,7 +17,7 @@ function App() {
   return (
     <>
     <div>
-      <h1>{solution && <Wordle solution = {solution}/>}</h1>
+      {solution && <Wordle solution = {solution}/>}
       </div>
         
     </>

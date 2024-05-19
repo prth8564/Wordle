@@ -35,7 +35,7 @@ const Keypad = ({usedKeys}) => {
         {letters.map((letter) => {
             const color = usedKeys[letter.key];
             return(
-                <div className={color}>{letter.key}</div>
+                <div key={letter.key} className={color}>{letter.key}</div>
             )
         })}
 
